@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Video.js Disable Seeking</title>
+  
+  
+  <link rel='stylesheet prefetch' href='https://vjs.zencdn.net/4.12/video-js.css'>
+
+  
+  
+</head>
+
+<body>
+<h5>Sila tonton video ISO Awareness ini sehingga habis. Isi maklumat anda pada borang yang terpapar selepas selesai menonton. Terima kasih.</h5>
+  <video id="vid1" src="HPP ISO Awareness 2019-c.mp4" controls class="video-js vjs-default-skin vjs-big-play-centered" width="640" height="360" preload="auto" onended="videoEnded()"></video>
+  <br/>
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfoGjT0zfeizdrm_Dqlz_O0Lt8EDwWK8nVp-EEZ2NguONvziw/viewform?embedded=true" width="640" height="767" frameborder="0" marginheight="0" marginwidth="0" style="display:none" id="form">Loading…</iframe>
+
+  <script src='https://vjs.zencdn.net/4.12/video.js'></script>
+
+  
+
+    <script>
+    	
+    	
+    	if (document.getElementById("vid1")) {
+  videojs("vid1").ready(function() {
+    
+    var myPlayer = this;
+
+    //Set initial time to 0
+    var currentTime = 0;
+    
+    //This example allows users to seek backwards but not forwards.
+    //To disable all seeking replace the if statements from the next
+    //two functions with myPlayer.currentTime(currentTime);
+
+    myPlayer.on("seeking", function(event) {
+      if (currentTime < myPlayer.currentTime()) {
+        myPlayer.currentTime(currentTime);
+      }
+    });
+
+    myPlayer.on("seeked", function(event) {
+      if (currentTime < myPlayer.currentTime()) {
+        myPlayer.currentTime(currentTime);
+      }
+    });
+
+    setInterval(function() {
+      if (!myPlayer.paused()) {
+        currentTime = myPlayer.currentTime();
+      }
+    }, 1000);
+
+  });
+}    	
+
+
+function videoEnded() {
+    document.getElementById("form").style.display = "block";
+}
+    </script>
+
+
+
+
+</body>
+
+</html>
